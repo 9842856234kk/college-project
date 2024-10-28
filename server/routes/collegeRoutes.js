@@ -1,5 +1,5 @@
 const express = require('express');
-const { sql, poolPromise } = require('../db'); // Use connection pool
+const {  poolPromise } = require('../db'); // Use connection pool
 const multer = require('multer');
 const router = express.Router();
 
@@ -42,6 +42,8 @@ router.post('/add', upload.single('photo'), async (req, res) => {
   }
 });
 
+
+
 // Get all colleges
 router.get('/all', async (req, res) => {
   const sqlQuery = `
@@ -63,6 +65,23 @@ router.get('/all', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch colleges' }); // Use JSON response
   }
 });
+
+
+// Get all colleges
+router.get('/', async (req, res) => {
+  const sqlQuery = `
+    SELECT *
+    FROM college;`;
+
+    try {
+      const pool = await poolPromise;
+      const result = await pool.request().query(sqlQuery);
+      res.json(result.recordset);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+});
+
 
 // Get single college by ID
 router.get('/single/:id', async (req, res) => {
