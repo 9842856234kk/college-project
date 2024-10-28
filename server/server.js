@@ -73,7 +73,7 @@ const startServer = async () => {
 // //   else console.log('Database connected!');
 // // });
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is starting on http://localhost:${PORT}`);
 })
 // // startServer();
 // // const sql = require('node-sql');
